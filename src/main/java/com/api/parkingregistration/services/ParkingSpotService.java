@@ -3,6 +3,8 @@ package com.api.parkingregistration.services;
 import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.repositories.ParkingSpotRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +27,8 @@ public class ParkingSpotService {
         return repository.save(parkingSpotModel);
     }
 
-    public List<ParkingSpotModel> findAll(){
-        return repository.findAll();
+    public Page<ParkingSpotModel> findAll(Pageable pageable){
+        return repository.findAll(pageable);
     }
 
     public Optional<ParkingSpotModel> findById(UUID id){
