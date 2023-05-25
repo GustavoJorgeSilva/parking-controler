@@ -1,6 +1,7 @@
 package com.api.parkingregistration.dtos;
 
 
+import com.api.parkingregistration.models.ResidentModel;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -22,11 +23,7 @@ public class ParkingSpotDTO {
     private String colorCar;
 
     @NotBlank
-    private String responsibleName;
-    @NotBlank
-    private String apartment;
-    @NotBlank
-    private String block;
+    private ResidentModel resident;
 
     public String getParkingSpotNumber() {
         return parkingSpotNumber;
@@ -68,27 +65,11 @@ public class ParkingSpotDTO {
         this.colorCar = colorCar;
     }
 
-    public String getResponsibleName() {
-        return responsibleName;
+    public ResidentModel getResident() {
+        return resident;
     }
 
-    public void setResponsibleName(String responsibleName) {
-        this.responsibleName = responsibleName;
-    }
-
-    public String getApartment() {
-        return apartment;
-    }
-
-    public void setApartment(String apartment) {
-        this.apartment = apartment;
-    }
-
-    public String getBlock() {
-        return block;
-    }
-
-    public void setBlock(String block) {
-        this.block = block;
+    public void setResident(ResidentModel resident) {
+        this.resident = resident;
     }
 }

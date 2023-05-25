@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,7 +41,7 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: Parking spot is alredy in use!");
         }
 
-        if (parkingSpotService.existsByApartmentAndBlock(parkingSpotDTO.getApartment(), parkingSpotDTO.getBlock())) {
+        if (parkingSpotService.existsByResident(parkingSpotDTO.getResident())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Parking spot alredy Registered for this apartment/block!");
         }
 

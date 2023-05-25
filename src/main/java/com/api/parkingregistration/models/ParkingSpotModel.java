@@ -1,5 +1,6 @@
 package com.api.parkingregistration.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -27,13 +28,39 @@ public class ParkingSpotModel implements Serializable {
     private String colorCar;
     @Column(nullable = false)
     private LocalDateTime registrationDate;
-    @Column(nullable = false, length = 130)
-    private String responsibleName;
-    @Column(nullable = false, length = 30)
-    private String apartment;
-    @Column(nullable = false, length = 30)
-    private String block;
 
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "parkingSpot")
+    @JoinColumn(name = "resident_id")
+    private ResidentModel resident;
+
+    public ResidentModel getResident() {
+        return resident;
+    }
+
+    public void setResident(ResidentModel resident) {
+        this.resident = resident;
+    }
+
+
+    public ParkingSpotModel() {
+    }
+
+    public ParkingSpotModel(String parkingSpotNumber, String licensePlateCar,
+                            String brandCar, String modelCar, String colorCar,
+                            LocalDateTime registrationDate) {
+
+
+        this.parkingSpotNumber = parkingSpotNumber;
+        this.licensePlateCar = licensePlateCar;
+        this.brandCar = brandCar;
+        this.modelCar = modelCar;
+        this.colorCar = colorCar;
+        this.registrationDate = registrationDate;
+
+
+    }
 
     public UUID getId() {
         return id;
@@ -91,29 +118,6 @@ public class ParkingSpotModel implements Serializable {
         this.registrationDate = registrationDate;
     }
 
-    public String getResponsibleName() {
-        return responsibleName;
-    }
-
-    public void setResponsibleName(String responsibleName) {
-        this.responsibleName = responsibleName;
-    }
-
-    public String getApartment() {
-        return apartment;
-    }
-
-    public void setApartment(String apartment) {
-        this.apartment = apartment;
-    }
-
-    public String getBlock() {
-        return block;
-    }
-
-    public void setBlock(String block) {
-        this.block = block;
-    }
 
 
 

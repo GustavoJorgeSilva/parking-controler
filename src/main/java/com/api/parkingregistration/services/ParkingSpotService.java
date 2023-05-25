@@ -1,6 +1,7 @@
 package com.api.parkingregistration.services;
 
 import com.api.parkingregistration.models.ParkingSpotModel;
+import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.repositories.ParkingSpotRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -41,19 +42,17 @@ public class ParkingSpotService {
     }
 
 
-
-
-
-    public boolean existsByLicensePlateCar(String licensePlateCar) {
+    public boolean existsByLicensePlateCar(String licensePlateCar){
         return repository.existsByLicensePlateCar(licensePlateCar);
-
+    }
+    public boolean existsByParkingSpotNumber(String parkSpotNumber){
+        return  repository.existsByParkingSpotNumber(parkSpotNumber);
     }
 
-    public boolean existsByParkingSpotNumber(String parkingSpotNumber) {
-        return repository.existsByParkingSpotNumber(parkingSpotNumber);
+
+    public boolean existsByResident(ResidentModel resident) {
+        return repository.existsByResident(resident);
     }
 
-    public boolean existsByApartmentAndBlock(String apartment, String block) {
-        return repository.existsByApartmentAndBlock(apartment,block);
-    }
+
 }
