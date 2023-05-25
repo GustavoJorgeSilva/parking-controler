@@ -47,7 +47,9 @@ public class ResidentModel implements Serializable {
 
 
 
-    public UUID getUUID(){
+
+
+    public UUID getId() {
         return id;
     }
 
@@ -83,11 +85,11 @@ public class ResidentModel implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ResidentModel residentModel)) return false;
-        return Objects.equals(getUUID(), residentModel.getUUID());
+        return Objects.equals(getId(), residentModel.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUUID());
+        return Objects.hash(getId());
     }
 }
