@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class ApartmentService {
 
@@ -24,6 +27,10 @@ public class ApartmentService {
 
     public Page<ApartmentModel> findAll(Pageable pageable) {
         return apartmentRepository.findAll(pageable);
+    }
+
+    public Optional<ApartmentModel> findApartmentById(UUID id){
+        return apartmentRepository.findById(id);
     }
 
 

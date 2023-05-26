@@ -1,8 +1,7 @@
 package com.api.parkingregistration.controllers;
 
 import com.api.parkingregistration.models.ApartmentModel;
-import com.api.parkingregistration.models.ResidentModel;
-import com.api.parkingregistration.repositories.ApartmentRepository;
+import com.api.parkingregistration.services.ApartmentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,29 +17,28 @@ import java.util.UUID;
 @RequestMapping("apartments")
 public class ApartmentController {
 
-    final ApartmentRepository apartmentRepository;
+    final ApartmentService apartmentService;
 
-
-    public ApartmentController(ApartmentRepository apartmentRepository) {
-        this.apartmentRepository = apartmentRepository;
+    public ApartmentController(ApartmentService apartmentService) {
+        this.apartmentService = apartmentService;
     }
 
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody ApartmentModel apartmentModel){
-        apartmentModel = apartmentRepository.save(apartmentModel);
+        apartmentModel = apartmentService.save(apartmentModel);
         return ResponseEntity.ok().body(apartmentModel);
     }
 
     @GetMapping
     public ResponseEntity<Page<ApartmentModel>> getAllApartments(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(apartmentRepository.findAll(pageable));
+        return ResponseEntity.status(HttpStatus.OK).body(apartmentService.findAll(pageable));
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Object> findApartmentById(@PathVariable(value = "id") UUID id){
 
-        Optional<ApartmentModel> apartmentModelOptional = apartmentRepository.findById(id);
+        Optional<ApartmentModel> apartmentModelOptional = apartmentService.findApartmentById(id);
         if(!apartmentModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Apartment id not found ");
         }
@@ -48,8 +46,5 @@ public class ApartmentController {
         return ResponseEntity.status(HttpStatus.OK).body(apartmentModelOptional.get());
     }
 
-
-
-
-
+    
 }
