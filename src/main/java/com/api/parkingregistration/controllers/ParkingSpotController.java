@@ -3,6 +3,7 @@ package com.api.parkingregistration.controllers;
 import com.api.parkingregistration.dtos.ParkingSpotDTO;
 import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.services.ParkingSpotService;
+import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -41,9 +42,6 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: Parking spot is alredy in use!");
         }
 
-
-
-
         var parkingSpotModel = new ParkingSpotModel();
         BeanUtils.copyProperties(parkingSpotModel1, parkingSpotModel);
         parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
@@ -61,7 +59,7 @@ public class ParkingSpotController {
 
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
             if(!parkingSpotModelOptional.isPresent()){
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found.");
+                throw new ResourceNotFoundException("Parking spot not found.");
             }
             return  ResponseEntity.status(HttpStatus.OK).body(parkingSpotModelOptional.get());
 

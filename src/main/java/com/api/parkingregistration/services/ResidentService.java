@@ -3,6 +3,8 @@ package com.api.parkingregistration.services;
 import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.repositories.ResidentRepository;
+import com.api.parkingregistration.services.exceptions.DataBaseException;
+import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -43,9 +45,9 @@ public class ResidentService {
         try {
             residentRepository.delete(residentModel);
         } catch (EmptyResultDataAccessException e){
-            System.out.println(e.getMessage());
+            throw new ResourceNotFoundException(residentModel.getId());
         } catch (DataIntegrityViolationException e){
-            System.out.println(e.getMessage());
+           throw new DataBaseException(e.getMessage());
         }
 
     }

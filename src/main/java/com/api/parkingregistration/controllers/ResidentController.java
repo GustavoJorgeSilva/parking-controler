@@ -4,6 +4,8 @@ import com.api.parkingregistration.dtos.ParkingSpotDTO;
 import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.services.ResidentService;
+import com.api.parkingregistration.services.exceptions.DataBaseException;
+import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -52,7 +54,7 @@ public class ResidentController {
 
         Optional<ResidentModel> residentModelOptional = residentService.findById(id);
         if (!residentModelOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resident not found.");
+            throw new ResourceNotFoundException(id);
         }
         return ResponseEntity.status(HttpStatus.OK).body(residentModelOptional.get());
 
@@ -62,7 +64,7 @@ public class ResidentController {
     public ResponseEntity<Object> deleteResidentByID(@PathVariable(value = "id") UUID id) {
         Optional<ResidentModel> residentModelOptional = residentService.findById(id);
         if (!residentModelOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resident not found.");
+            throw new ResourceNotFoundException(id);
         }
 
         residentService.delete(residentModelOptional.get());

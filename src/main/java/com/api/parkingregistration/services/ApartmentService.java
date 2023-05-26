@@ -3,6 +3,8 @@ package com.api.parkingregistration.services;
 import com.api.parkingregistration.models.ApartmentModel;
 import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.repositories.ApartmentRepository;
+import com.api.parkingregistration.services.exceptions.DataBaseException;
+import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -42,22 +44,16 @@ public class ApartmentService {
             Optional<ApartmentModel> apartmentModel = apartmentRepository.findById(id);
 
             if(apartmentModel.get().getResident() != null){
-                throw new IllegalArgumentException("It is not possible to delete the apartment due to the association with a resident.");
+                throw new DataBaseException("It was not possible to delete the apartment because it has a resident associated with it");
             }
 
             apartmentRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            System.out.println(e.getMessage());
+            throw new ResourceNotFoundException(id);
         } catch (DataIntegrityViolationException e) {
-            System.out.println(e.getMessage());
+           throw new DataBaseException(e.getMessage());
         }
     }
-
-
-    public boolean existsByNumberApartmentAndBlock(String numberApartment, String block){
-        return apartmentRepository.existsByNumberApartmentAndBlock(numberApartment,block);
-    }
-
 
     public ApartmentModel update(UUID id, ApartmentModel obj) {
 
@@ -70,5 +66,9 @@ public class ApartmentService {
     public void updateData(ApartmentModel apartmentToUpdate, ApartmentModel newData){
         apartmentToUpdate.setNumberApartment(newData.getNumberApartment());
         apartmentToUpdate.setBlock(newData.getBlock());
+    }
+
+    public boolean existsByNumberApartmentAndBlock(String numberApartment, String block){
+        return apartmentRepository.existsByNumberApartmentAndBlock(numberApartment,block);
     }
 }
