@@ -51,14 +51,14 @@ public class ResidentService {
     }
 
 
-    private void updateData(ResidentModel entity, ResidentModel obj) {
+    private void updateData(ResidentModel residentToUpdate, ResidentModel newData) {
 
-        entity.setApartment(obj.getApartment());
-        entity.setResponsibleName(obj.getResponsibleName());
-        entity.setBlock(obj.getBlock());
+        residentToUpdate.setApartment(newData.getApartment());
+        residentToUpdate.setResponsibleName(newData.getResponsibleName());
+        residentToUpdate.setBlock(newData.getBlock());
 
 
-       
+
     }
 
     public boolean existsById(UUID residentModel) {
