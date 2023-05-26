@@ -1,9 +1,9 @@
 package com.api.parkingregistration.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,37 +17,33 @@ public class ResidentModel implements Serializable {
 
     @Column(nullable = false, length = 130)
     private String responsibleName;
-    @Column(nullable = false, length = 30)
-    private String apartment;
-    @Column(nullable = false, length = 30)
-    private String block;
+    @Column(nullable = false, length = 12)
+    private String cpf;
 
-    @OneToOne
-    @JoinColumn(name = "parking_spot_id")
-    private ParkingSpotModel parkingSpot;
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false,name = "birthday_date")
+    private LocalDate birthday;
 
-    public ParkingSpotModel getParkingSpot() {
-        return parkingSpot;
-    }
+    @Column(nullable = false, length = 130)
+    private String email;
 
-    public void setParkingSpot(ParkingSpotModel parkingSpot) {
-        this.parkingSpot = parkingSpot;
-    }
+
+
+
+    @OneToOne(mappedBy = "resident")
+    private ApartmentModel apartmentModel;
+
 
 
     public ResidentModel() {
     }
 
-    public ResidentModel(String responsibleName, String apartment, String block, ParkingSpotModel parkingSpot) {
+    public ResidentModel(String responsibleName, String cpf, LocalDate birthday, String email) {
         this.responsibleName = responsibleName;
-        this.apartment = apartment;
-        this.block = block;
-        this.parkingSpot = parkingSpot;
+        this.cpf = cpf;
+        this.birthday = birthday;
+        this.email = email;
     }
-
-
-
-
 
     public UUID getId() {
         return id;
@@ -65,20 +61,37 @@ public class ResidentModel implements Serializable {
         this.responsibleName = responsibleName;
     }
 
-    public String getApartment() {
-        return apartment;
+
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setApartment(String apartment) {
-        this.apartment = apartment;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public String getBlock() {
-        return block;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setBlock(String block) {
-        this.block = block;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public ApartmentModel getApartmentModel() {
+        return apartmentModel;
+    }
+
+    public void setApartmentModel(ApartmentModel apartmentModel) {
+        this.apartmentModel = apartmentModel;
     }
 
     @Override

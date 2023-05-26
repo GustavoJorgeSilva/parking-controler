@@ -50,9 +50,7 @@ public class ParkingSpotService {
     }
 
 
-    public boolean existsByResident(ResidentModel resident) {
-        return repository.existsByResident(resident);
-    }
+
 
 
 }

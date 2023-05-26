@@ -30,18 +30,11 @@ public class ParkingSpotModel implements Serializable {
     private LocalDateTime registrationDate;
 
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "parkingSpot")
-    @JoinColumn(name = "resident_id")
-    private ResidentModel resident;
 
-    public ResidentModel getResident() {
-        return resident;
-    }
+    @OneToOne(mappedBy = "parkingSpotModel")
+    private ApartmentModel apartmentModel;
 
-    public void setResident(ResidentModel resident) {
-        this.resident = resident;
-    }
+
 
 
     public ParkingSpotModel() {

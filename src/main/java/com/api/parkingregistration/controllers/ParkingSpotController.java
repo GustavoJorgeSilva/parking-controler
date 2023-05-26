@@ -41,9 +41,7 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: Parking spot is alredy in use!");
         }
 
-        if (parkingSpotService.existsByResident(parkingSpotDTO.getResident())){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Parking spot alredy Registered for this apartment/block!");
-        }
+
 
 
         var parkingSpotModel = new ParkingSpotModel();

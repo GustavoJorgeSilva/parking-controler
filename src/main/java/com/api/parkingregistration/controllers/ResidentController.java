@@ -66,11 +66,11 @@ public class ResidentController {
     }
 
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<ResidentModel> update(@PathVariable UUID id, @RequestBody ResidentModel obj) {
-        obj = residentService.update(id,obj);
-        return ResponseEntity.ok().body(obj);
-    }
+//    @PutMapping(value = "/{id}")
+//    public ResponseEntity<ResidentModel> update(@PathVariable UUID id, @RequestBody ResidentModel obj) {
+//        obj = residentService.update(id,obj);
+//        return ResponseEntity.ok().body(obj);
+//    }
 
 
 
