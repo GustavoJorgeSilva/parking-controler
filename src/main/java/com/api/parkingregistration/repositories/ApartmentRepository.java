@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface ApartmentRepository extends JpaRepository<ApartmentModel, UUID> {
 
-//    public boolean existsByNumberApartmentAndBlock(ApartmentModel apartmentModel);
+    public boolean existsByNumberApartmentAndBlock(String numberApartment, String block);
 
 
 }

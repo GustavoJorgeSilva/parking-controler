@@ -4,6 +4,8 @@ import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.repositories.ResidentRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,8 +38,16 @@ public class ResidentService {
 
 
     @Transactional
+
     public void delete(ResidentModel residentModel) {
-        residentRepository.delete(residentModel);
+        try {
+            residentRepository.delete(residentModel);
+        } catch (EmptyResultDataAccessException e){
+            System.out.println(e.getMessage());
+        } catch (DataIntegrityViolationException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
 

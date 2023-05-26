@@ -1,6 +1,7 @@
 package com.api.parkingregistration.controllers;
 
 import com.api.parkingregistration.models.ApartmentModel;
+import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.services.ApartmentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,5 +47,21 @@ public class ApartmentController {
         return ResponseEntity.status(HttpStatus.OK).body(apartmentModelOptional.get());
     }
 
-    
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Object> delete(@PathVariable UUID id) {
+        apartmentService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Object> update(@PathVariable UUID id, @RequestBody ApartmentModel obj) {
+        if (apartmentService.existsByNumberApartmentAndBlock(obj.getNumberApartment(),obj.getBlock())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: Number apartment and block already registered");
+        }
+
+        obj = apartmentService.update(id, obj);
+        return ResponseEntity.ok().body(obj);
+    }
+
+
 }

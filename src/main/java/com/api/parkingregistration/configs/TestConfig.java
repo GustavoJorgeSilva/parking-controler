@@ -68,6 +68,7 @@ public class TestConfig implements CommandLineRunner {
         ApartmentModel ap3 = new ApartmentModel("145","A",ps3);
         ApartmentModel ap4 = new ApartmentModel("145","A",ps4);
         ApartmentModel ap5 = new ApartmentModel("145","A",ps5);
+        ApartmentModel ap6 = new ApartmentModel("000","A",null);
 
         ap1.setResident(r1);
         ap2.setResident(r2);
@@ -76,7 +77,7 @@ public class TestConfig implements CommandLineRunner {
         ap5.setResident(r5);
         parkingSpotRepository.saveAll(Arrays.asList(ps1,ps2,ps3,ps4,ps5));
         residentRepository.saveAll(Arrays.asList(r1,r2,r3,r4,r5));
-        apartmentRepository.saveAll(Arrays.asList(ap1,ap2,ap3,ap4,ap5));
+        apartmentRepository.saveAll(Arrays.asList(ap1,ap2,ap3,ap4,ap5,ap6));
 
 
 
