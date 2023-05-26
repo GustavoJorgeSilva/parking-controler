@@ -44,24 +44,29 @@ public class ResidentService {
 
 
 
-//    public ResidentModel update(UUID id, ResidentModel obj) {
-//        ResidentModel residentModel = residentRepository.getReferenceById(id);
-//        updateData(residentModel, obj);
-//        return residentRepository.save(residentModel);
-//    }
-//
-//
-//    private void updateData(ResidentModel residentToUpdate, ResidentModel newData) {
-//
-//        residentToUpdate.setApartment(newData.getApartment());
-//        residentToUpdate.setResponsibleName(newData.getResponsibleName());
-//        residentToUpdate.setBlock(newData.getBlock());
-//
-//
-//
-//    }
+    public ResidentModel update(UUID id, ResidentModel obj) {
+        ResidentModel residentModel = residentRepository.getReferenceById(id);
+        updateData(residentModel, obj);
+        return residentRepository.save(residentModel);
+    }
+
+
+    private void updateData(ResidentModel residentToUpdate, ResidentModel newData) {
+
+        residentToUpdate.setResponsibleName(newData.getResponsibleName());
+        residentToUpdate.setCpf(newData.getCpf());
+        residentToUpdate.setEmail(newData.getEmail());
+
+
+
+
+    }
 
     public boolean existsById(UUID residentModel) {
         return residentRepository.existsById(residentModel);
+    }
+
+    public boolean existsByCpf(String cpf){
+        return residentRepository.existsByCpf(cpf);
     }
 }

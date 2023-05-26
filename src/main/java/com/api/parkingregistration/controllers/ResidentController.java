@@ -30,7 +30,11 @@ public class ResidentController {
 
 
     @PostMapping
-    public ResponseEntity<ResidentModel> save(@RequestBody ResidentModel resident){
+    public ResponseEntity<Object> save(@RequestBody ResidentModel resident) {
+        if (residentService.existsByCpf(resident.getCpf())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: cpf is already registered");
+        }
+
         resident = residentService.save(resident);
         return ResponseEntity.status(HttpStatus.CREATED).body(resident);
 
@@ -38,26 +42,26 @@ public class ResidentController {
 
 
     @GetMapping
-    public ResponseEntity<Page<ResidentModel>> getAllresidents(@PageableDefault(page = 0,size = 10,sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
+    public ResponseEntity<Page<ResidentModel>> getAllresidents(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(residentService.findAll(pageable));
     }
 
     @GetMapping({"/{id}"})
-    public ResponseEntity<Object> getOneResident(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> getOneResident(@PathVariable(value = "id") UUID id) {
 
 
         Optional<ResidentModel> residentModelOptional = residentService.findById(id);
-        if(!residentModelOptional.isPresent()){
+        if (!residentModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resident not found.");
         }
-        return  ResponseEntity.status(HttpStatus.OK).body(residentModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body(residentModelOptional.get());
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteResidentByID(@PathVariable (value = "id") UUID id){
+    public ResponseEntity<Object> deleteResidentByID(@PathVariable(value = "id") UUID id) {
         Optional<ResidentModel> residentModelOptional = residentService.findById(id);
-        if(!residentModelOptional.isPresent()){
+        if (!residentModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resident not found.");
         }
 
@@ -66,12 +70,13 @@ public class ResidentController {
     }
 
 
-//    @PutMapping(value = "/{id}")
-//    public ResponseEntity<ResidentModel> update(@PathVariable UUID id, @RequestBody ResidentModel obj) {
-//        obj = residentService.update(id,obj);
-//        return ResponseEntity.ok().body(obj);
-//    }
-
-
-
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Object> update(@PathVariable UUID id, @RequestBody ResidentModel obj) {
+        if (residentService.existsByCpf(obj.getCpf())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: cpf is already registered");
+        }
+        
+        obj = residentService.update(id, obj);
+        return ResponseEntity.ok().body(obj);
+    }
 }

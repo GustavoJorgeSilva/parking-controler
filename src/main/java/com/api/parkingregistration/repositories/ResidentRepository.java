@@ -9,6 +9,7 @@ public interface ResidentRepository extends JpaRepository<ResidentModel, UUID> {
 
 
     public boolean existsById(UUID residentModel);
+    public boolean existsByCpf(String cpf);
 
 
 }
