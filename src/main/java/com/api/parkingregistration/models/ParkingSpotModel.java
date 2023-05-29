@@ -29,7 +29,7 @@ public class ParkingSpotModel implements Serializable {
     private ApartmentModel apartmentModel;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "car_id")
     private CarModel carModel;
 

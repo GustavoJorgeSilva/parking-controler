@@ -39,22 +39,10 @@ public class CarService {
         return carRepository.findById(id);}
 
     @Transactional
-    public void delete(UUID id){
-        try {
-            Optional<CarModel> carModel = carRepository.findById(id);
+    public void delete(CarModel carModel){
+        carRepository.deleteById(carModel.getId());
+          }
 
-            if (carModel.get().getResident().isHaveAcar()){
-                throw new DataBaseException("Error: car cannot be deleted");
-            }
-
-            carRepository.deleteById(id);
-
-        } catch (EmptyResultDataAccessException e){
-            throw new ResourceNotFoundException(id);
-        } catch (DataIntegrityViolationException e){
-            throw new DataBaseException(e.getMessage());
-        }
-    }
 
     public CarModel update(UUID id, CarModel obj) {
 

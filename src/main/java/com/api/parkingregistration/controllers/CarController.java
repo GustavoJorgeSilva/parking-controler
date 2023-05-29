@@ -53,7 +53,11 @@ public class CarController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> delete(@PathVariable UUID id) {
-        carService.delete(id);
+       Optional<CarModel> carModelOptional = carService.findCarById(id);
+       if (!carModelOptional.isPresent()){
+           throw new ResourceNotFoundException(id);
+       }
+       carService.delete(carModelOptional.get());
         return ResponseEntity.noContent().build();
     }
 
