@@ -1,5 +1,6 @@
 package com.api.parkingregistration.controllers.exceptions;
 
+import com.api.parkingregistration.services.exceptions.ConflictException;
 import com.api.parkingregistration.services.exceptions.DataBaseException;
 import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,15 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> dataBase(DataBaseException e, HttpServletRequest request){
         String error = "Data base error";
         HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError(Instant.now(),status.value(),error,e.getMessage(),request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<StandardError> dataBaseConflict(ConflictException e, HttpServletRequest request){
+        String error = "Conflict: argument already existing in the database";
+        HttpStatus status = HttpStatus.CONFLICT;
         StandardError err = new StandardError(Instant.now(),status.value(),error,e.getMessage(),request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }

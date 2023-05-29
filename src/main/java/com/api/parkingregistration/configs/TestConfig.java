@@ -111,7 +111,7 @@ public class TestConfig implements CommandLineRunner {
         parkingSpot5.setCarModel(resident5.getCar());
         parkingSpot5.setApartmentModel(apartment5);
 
-
+        
 
         apartmentRepository.saveAll(Arrays.asList(apartment1,apartment2,apartment3,apartment4,apartment1,apartment6,apartment5));
         parkingSpotRepository.saveAll(Arrays.asList(parkingSpot1,parkingSpot2,parkingSpot3,parkingSpot4,parkingSpot5));

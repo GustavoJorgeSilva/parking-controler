@@ -19,7 +19,7 @@ import java.util.UUID;
 @Service
 public class ResidentService {
 
-    final ResidentRepository residentRepository;
+    private ResidentRepository residentRepository;
 
     public ResidentService(ResidentRepository residentRepository) {
         this.residentRepository = residentRepository;

@@ -2,6 +2,9 @@ package com.api.parkingregistration.controllers;
 
 import com.api.parkingregistration.models.ApartmentModel;
 import com.api.parkingregistration.services.ApartmentService;
+import com.api.parkingregistration.services.exceptions.ConflictException;
+import com.api.parkingregistration.services.exceptions.DataBaseException;
+import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -40,7 +43,7 @@ public class ApartmentController {
 
         Optional<ApartmentModel> apartmentModelOptional = apartmentService.findApartmentById(id);
         if(!apartmentModelOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Apartment id not found ");
+            throw new ResourceNotFoundException(id);
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(apartmentModelOptional.get());
@@ -55,7 +58,8 @@ public class ApartmentController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> update(@PathVariable UUID id, @RequestBody ApartmentModel obj) {
         if (apartmentService.existsByNumberApartmentAndBlock(obj.getNumberApartment(),obj.getBlock())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: Number apartment and block already registered");
+            throw new ConflictException("Conflict apartment number: " + obj.getNumberApartment() + " and block: " + obj.getBlock()+
+                    " is already exists in dataBase");
         }
 
         obj = apartmentService.update(id, obj);

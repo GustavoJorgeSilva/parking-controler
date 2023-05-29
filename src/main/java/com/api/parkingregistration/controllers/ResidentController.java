@@ -4,6 +4,7 @@ import com.api.parkingregistration.dtos.ParkingSpotDTO;
 import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.services.ResidentService;
+import com.api.parkingregistration.services.exceptions.ConflictException;
 import com.api.parkingregistration.services.exceptions.DataBaseException;
 import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
@@ -75,7 +76,7 @@ public class ResidentController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> update(@PathVariable UUID id, @RequestBody ResidentModel obj) {
         if (residentService.existsByCpf(obj.getCpf())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: cpf is already registered");
+            throw new ConflictException("Conflict: Cpf: " +obj.getCpf() +  " already existing in the database");
         }
         
         obj = residentService.update(id, obj);
