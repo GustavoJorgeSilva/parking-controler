@@ -18,7 +18,7 @@ import java.util.UUID;
 @Service
 public class ApartmentService {
 
-    private ApartmentRepository apartmentRepository;
+    private final ApartmentRepository apartmentRepository;
 
     public ApartmentService(ApartmentRepository apartmentRepository) {
         this.apartmentRepository = apartmentRepository;

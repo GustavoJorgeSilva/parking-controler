@@ -24,7 +24,7 @@ import java.util.UUID;
 @RequestMapping("parking-spot")
 public class ParkingSpotController {
 
-    final ParkingSpotService parkingSpotService;
+    private final ParkingSpotService parkingSpotService;
 
 
     public ParkingSpotController(ParkingSpotService parkingSpotService) {
@@ -35,8 +35,6 @@ public class ParkingSpotController {
     public ResponseEntity<Object> saveParkingSpot(@RequestBody ParkingSpotModel parkingSpotModel1) {
 
 
-
-
         var parkingSpotModel = new ParkingSpotModel();
         BeanUtils.copyProperties(parkingSpotModel1, parkingSpotModel);
         parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
@@ -44,26 +42,26 @@ public class ParkingSpotController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(@PageableDefault(page = 0,size = 10,sort = "id", direction = Sort.Direction.ASC)Pageable pageable){
+    public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll(pageable));
     }
 
     @GetMapping({"/{id}"})
-    public ResponseEntity<Object> getOneParkingSpot(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> getOneParkingSpot(@PathVariable(value = "id") UUID id) {
 
 
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
-            if(!parkingSpotModelOptional.isPresent()){
-                throw new ResourceNotFoundException("Parking spot not found.");
-            }
-            return  ResponseEntity.status(HttpStatus.OK).body(parkingSpotModelOptional.get());
+        if (!parkingSpotModelOptional.isPresent()) {
+            throw new ResourceNotFoundException("Parking spot not found.");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotModelOptional.get());
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteParkingSpot(@PathVariable (value= "id") UUID id ){
+    public ResponseEntity<Object> deleteParkingSpot(@PathVariable(value = "id") UUID id) {
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
-        if(!parkingSpotModelOptional.isPresent()){
+        if (!parkingSpotModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found.");
         }
         parkingSpotService.delete(parkingSpotModelOptional.get());
@@ -71,22 +69,22 @@ public class ParkingSpotController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateParkingSPot(@PathVariable(value = "id") UUID id,@RequestBody
-                                                    ParkingSpotModel parkingSpotModel){
+    public ResponseEntity<Object> updateParkingSPot(@PathVariable(value = "id") UUID id, @RequestBody
+    ParkingSpotModel parkingSpotModel) {
 
         Optional<ParkingSpotModel> parkingSpotModelOptional = parkingSpotService.findById(id);
-        if(!parkingSpotModelOptional.isPresent()){
+        if (!parkingSpotModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking spot not found.");
-            }
+        }
 
         var parkingSpotModelCopy = new ParkingSpotModel();
-        BeanUtils.copyProperties(parkingSpotModel,parkingSpotModelCopy);
+        BeanUtils.copyProperties(parkingSpotModel, parkingSpotModelCopy);
         parkingSpotModelCopy.setId(parkingSpotModelOptional.get().getId());
         parkingSpotModelCopy.setRegistrationDate(parkingSpotModelOptional.get().getRegistrationDate());
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModelCopy));
-        }
-
     }
+
+}
 
 
 

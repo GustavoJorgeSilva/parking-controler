@@ -1,5 +1,6 @@
 package com.api.parkingregistration.services;
 
+import com.api.parkingregistration.models.CarModel;
 import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.repositories.ParkingSpotRepository;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Service
 public class ParkingSpotService {
 
-    private ParkingSpotRepository repository;
+    private final ParkingSpotRepository repository;
 
 
     public ParkingSpotService(ParkingSpotRepository repository) {
@@ -39,6 +40,7 @@ public class ParkingSpotService {
     public void delete(ParkingSpotModel parkingSpotModel){
         repository.delete(parkingSpotModel);
     }
+
 
 
 

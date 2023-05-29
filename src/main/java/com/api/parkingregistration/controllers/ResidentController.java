@@ -1,14 +1,9 @@
 package com.api.parkingregistration.controllers;
 
-import com.api.parkingregistration.dtos.ParkingSpotDTO;
-import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.services.ResidentService;
 import com.api.parkingregistration.services.exceptions.ConflictException;
-import com.api.parkingregistration.services.exceptions.DataBaseException;
 import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
-import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,7 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -25,7 +19,7 @@ import java.util.UUID;
 @RequestMapping("residents")
 public class ResidentController {
 
-    final ResidentService residentService;
+    private final ResidentService residentService;
 
     public ResidentController(ResidentService residentService) {
         this.residentService = residentService;

@@ -20,7 +20,7 @@ import java.util.UUID;
 @RequestMapping("apartments")
 public class ApartmentController {
 
-    final ApartmentService apartmentService;
+    private final ApartmentService apartmentService;
 
     public ApartmentController(ApartmentService apartmentService) {
         this.apartmentService = apartmentService;
@@ -28,7 +28,7 @@ public class ApartmentController {
 
 
     @PostMapping
-    public ResponseEntity<Object> save(@RequestBody ApartmentModel apartmentModel){
+    public ResponseEntity<Object> save(@RequestBody ApartmentModel apartmentModel) {
         apartmentModel = apartmentService.save(apartmentModel);
         return ResponseEntity.ok().body(apartmentModel);
     }
@@ -39,10 +39,10 @@ public class ApartmentController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Object> findApartmentById(@PathVariable(value = "id") UUID id){
+    public ResponseEntity<Object> findApartmentById(@PathVariable(value = "id") UUID id) {
 
         Optional<ApartmentModel> apartmentModelOptional = apartmentService.findApartmentById(id);
-        if(!apartmentModelOptional.isPresent()){
+        if (!apartmentModelOptional.isPresent()) {
             throw new ResourceNotFoundException(id);
         }
 
@@ -57,8 +57,8 @@ public class ApartmentController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> update(@PathVariable UUID id, @RequestBody ApartmentModel obj) {
-        if (apartmentService.existsByNumberApartmentAndBlock(obj.getNumberApartment(),obj.getBlock())) {
-            throw new ConflictException("Conflict apartment number: " + obj.getNumberApartment() + " and block: " + obj.getBlock()+
+        if (apartmentService.existsByNumberApartmentAndBlock(obj.getNumberApartment(), obj.getBlock())) {
+            throw new ConflictException("Conflict apartment number: " + obj.getNumberApartment() + " and block: " + obj.getBlock() +
                     " is already exists in dataBase");
         }
 

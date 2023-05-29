@@ -28,6 +28,8 @@ public class ResidentModel implements Serializable {
     @Column(nullable = false, length = 130)
     private String email;
 
+    private boolean haveAcar;
+
     @JsonIgnore
     @OneToOne(mappedBy = "resident")
     private ApartmentModel apartmentModel;
@@ -47,7 +49,7 @@ public class ResidentModel implements Serializable {
         this.cpf = cpf;
         this.birthday = birthday;
         this.email = email;
-
+        this.haveAcar = false;
     }
 
     public UUID getId() {
@@ -104,7 +106,17 @@ public class ResidentModel implements Serializable {
     }
 
     public void setCar(CarModel car) {
+
         this.car = car;
+        haveAcar = true;
+    }
+
+    public boolean isHaveAcar() {
+        return haveAcar;
+    }
+
+    public void setHaveAcar(boolean haveAcar) {
+        this.haveAcar = haveAcar;
     }
 
     @Override
@@ -117,5 +129,9 @@ public class ResidentModel implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    public void sellCar(){
+        this.haveAcar = false;
     }
 }
