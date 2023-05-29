@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -18,38 +19,29 @@ public class ParkingSpotModel implements Serializable {
     @Column(nullable = false, unique = true, length = 10)
     private String parkingSpotNumber;
 
-    @Column(nullable = false, unique = true, length = 7)
-    private String licensePlateCar;
-    @Column(nullable = false, length = 70)
-    private String brandCar;
-    @Column(nullable = false, length = 70)
-    private String modelCar;
-    @Column(nullable = false, length = 70)
-    private String colorCar;
     @Column(nullable = false)
     private LocalDateTime registrationDate;
 
 
-
-    @OneToOne(mappedBy = "parkingSpotModel")
+    @JsonIgnore
+    @OneToOne
     private ApartmentModel apartmentModel;
 
+
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private CarModel carModel;
 
 
 
     public ParkingSpotModel() {
     }
 
-    public ParkingSpotModel(String parkingSpotNumber, String licensePlateCar,
-                            String brandCar, String modelCar, String colorCar,
+    public ParkingSpotModel(String parkingSpotNumber,
                             LocalDateTime registrationDate) {
 
 
         this.parkingSpotNumber = parkingSpotNumber;
-        this.licensePlateCar = licensePlateCar;
-        this.brandCar = brandCar;
-        this.modelCar = modelCar;
-        this.colorCar = colorCar;
         this.registrationDate = registrationDate;
 
 
@@ -71,38 +63,6 @@ public class ParkingSpotModel implements Serializable {
         this.parkingSpotNumber = parkingSpotNumber;
     }
 
-    public String getLicensePlateCar() {
-        return licensePlateCar;
-    }
-
-    public void setLicensePlateCar(String licensePlateCar) {
-        this.licensePlateCar = licensePlateCar;
-    }
-
-    public String getBrandCar() {
-        return brandCar;
-    }
-
-    public void setBrandCar(String brandCar) {
-        this.brandCar = brandCar;
-    }
-
-    public String getModelCar() {
-        return modelCar;
-    }
-
-    public void setModelCar(String modelCar) {
-        this.modelCar = modelCar;
-    }
-
-    public String getColorCar() {
-        return colorCar;
-    }
-
-    public void setColorCar(String colorCar) {
-        this.colorCar = colorCar;
-    }
-
     public LocalDateTime getRegistrationDate() {
         return registrationDate;
     }
@@ -111,7 +71,31 @@ public class ParkingSpotModel implements Serializable {
         this.registrationDate = registrationDate;
     }
 
+    public ApartmentModel getApartmentModel() {
+        return apartmentModel;
+    }
 
+    public void setApartmentModel(ApartmentModel apartmentModel) {
+        this.apartmentModel = apartmentModel;
+    }
 
+    public CarModel getCarModel() {
+        return carModel;
+    }
 
+    public void setCarModel(CarModel carModel) {
+        this.carModel = carModel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParkingSpotModel that)) return false;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

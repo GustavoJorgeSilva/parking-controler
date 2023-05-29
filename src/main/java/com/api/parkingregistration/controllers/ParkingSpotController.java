@@ -34,13 +34,8 @@ public class ParkingSpotController {
     @PostMapping
     public ResponseEntity<Object> saveParkingSpot(@RequestBody ParkingSpotModel parkingSpotModel1) {
 
-        if (parkingSpotService.existsByLicensePlateCar(parkingSpotModel1.getLicensePlateCar())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: License plate car is alredy in use!");
-        }
 
-        if (parkingSpotService.existsByParkingSpotNumber(parkingSpotModel1.getParkingSpotNumber())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflit: Parking spot is alredy in use!");
-        }
+
 
         var parkingSpotModel = new ParkingSpotModel();
         BeanUtils.copyProperties(parkingSpotModel1, parkingSpotModel);

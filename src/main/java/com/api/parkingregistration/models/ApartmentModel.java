@@ -18,7 +18,7 @@ public class ApartmentModel implements Serializable {
     @Column(nullable = false, length = 10)
     private String block;
 
-    @JsonIgnore
+
     @OneToOne
     private ResidentModel resident;
 

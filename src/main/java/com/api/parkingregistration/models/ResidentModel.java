@@ -28,11 +28,14 @@ public class ResidentModel implements Serializable {
     @Column(nullable = false, length = 130)
     private String email;
 
-
-
-
+    @JsonIgnore
     @OneToOne(mappedBy = "resident")
     private ApartmentModel apartmentModel;
+
+    @OneToOne
+    @JoinColumn(name = "car_id")
+    private CarModel car;
+
 
 
 
@@ -44,6 +47,7 @@ public class ResidentModel implements Serializable {
         this.cpf = cpf;
         this.birthday = birthday;
         this.email = email;
+
     }
 
     public UUID getId() {
@@ -93,6 +97,14 @@ public class ResidentModel implements Serializable {
 
     public void setApartmentModel(ApartmentModel apartmentModel) {
         this.apartmentModel = apartmentModel;
+    }
+
+    public CarModel getCar() {
+        return car;
+    }
+
+    public void setCar(CarModel car) {
+        this.car = car;
     }
 
     @Override

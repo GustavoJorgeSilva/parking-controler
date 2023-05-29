@@ -1,7 +1,6 @@
 package com.api.parkingregistration.controllers;
 
 import com.api.parkingregistration.models.ApartmentModel;
-import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.services.ApartmentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
