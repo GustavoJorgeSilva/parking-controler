@@ -2,6 +2,8 @@ package com.api.parkingregistration.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -22,23 +24,21 @@ public class ResidentModel implements Serializable {
     private String cpf;
 
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false,name = "birthday_date")
+    @Column(nullable = false, name = "birthday_date")
     private LocalDate birthday;
 
     @Column(nullable = false, length = 130)
     private String email;
 
 
-
     @JsonIgnore
-    @OneToOne(mappedBy = "resident",cascade = CascadeType.ALL)
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ApartmentModel apartmentModel;
 
-    @OneToOne
+    @OneToOne(mappedBy = "resident", cascade = CascadeType.REMOVE)
     @JoinColumn(name = "car_id")
     private CarModel car;
-
-
 
 
     public ResidentModel() {

@@ -37,14 +37,8 @@ public class TestConfig implements CommandLineRunner {
     private CarRepository carRepository;
 
 
-
-
     @Override
     public void run(String... args) throws Exception {
-
-
-
-
 
         ParkingSpotModel parkingSpot1 = new ParkingSpotModel("111",LocalDateTime.now());
 
@@ -65,7 +59,6 @@ public class TestConfig implements CommandLineRunner {
 //        CarModel car6 = new CarModel("zdg1237","BMW","x5","Brown");
 
 
-
         ParkingSpotModel parkingSpot2 = new ParkingSpotModel("222",
                 LocalDateTime.now());
         ParkingSpotModel parkingSpot3 = new ParkingSpotModel("333",
@@ -77,12 +70,18 @@ public class TestConfig implements CommandLineRunner {
 
         parkingSpotRepository.saveAll(Arrays.asList(parkingSpot1,parkingSpot2,parkingSpot3,parkingSpot4,parkingSpot5));
 
-        ApartmentModel apartment1 = new ApartmentModel("145","A",parkingSpot1);
-        ApartmentModel apartment2 = new ApartmentModel("146","A",parkingSpot2);
-        ApartmentModel apartment3 = new ApartmentModel("147","A",parkingSpot3);
-        ApartmentModel apartment4 = new ApartmentModel("145","B",parkingSpot4);
-        ApartmentModel apartment5 = new ApartmentModel("146","B",parkingSpot5);
-        ApartmentModel apartment6 = new ApartmentModel("147","B",null);
+        ApartmentModel apartment1 = new ApartmentModel("145","A");
+        ApartmentModel apartment2 = new ApartmentModel("146","A");
+        ApartmentModel apartment3 = new ApartmentModel("147","A");
+        ApartmentModel apartment4 = new ApartmentModel("145","B");
+        ApartmentModel apartment5 = new ApartmentModel("146","B");
+        ApartmentModel apartment6 = new ApartmentModel("147","B");
+
+        apartment1.setParkingSpotModel(parkingSpot1);
+        apartment2.setParkingSpotModel(parkingSpot2);
+        apartment3.setParkingSpotModel(parkingSpot3);
+        apartment4.setParkingSpotModel(parkingSpot4);
+        apartment5.setParkingSpotModel(parkingSpot5);
 
 
         carRepository.saveAll(Arrays.asList(car1,car2,car3,car4,car5));
@@ -98,41 +97,15 @@ public class TestConfig implements CommandLineRunner {
         resident3.setCar(car3);
         resident4.setCar(car4);
         resident5.setCar(car5);
-        residentRepository.saveAll(Arrays.asList(resident1,resident2,resident3,resident4,resident5));
-
-        resident5.sellCar();
-        residentRepository.save(resident5);
-
-        parkingSpot1.setCarModel(resident1.getCar());
-        parkingSpot1.setApartmentModel(apartment1);
-        parkingSpot2.setCarModel(resident2.getCar());
-        parkingSpot2.setApartmentModel(apartment2);
-        parkingSpot3.setCarModel(resident3.getCar());
-        parkingSpot3.setApartmentModel(apartment3);
-        parkingSpot4.setCarModel(resident4.getCar());
-        parkingSpot4.setApartmentModel(apartment4);
-        parkingSpot5.setCarModel(resident5.getCar());
-        parkingSpot5.setApartmentModel(apartment5);
-
-        
+        resident1.setApartmentModel(apartment1);
+        resident2.setApartmentModel(apartment2);
+        resident3.setApartmentModel(apartment3);
+        resident4.setApartmentModel(apartment4);
+        resident5.setApartmentModel(apartment5);
 
         apartmentRepository.saveAll(Arrays.asList(apartment1,apartment2,apartment3,apartment4,apartment1,apartment6,apartment5));
+        residentRepository.saveAll(Arrays.asList(resident1,resident2,resident3,resident4,resident5));
         parkingSpotRepository.saveAll(Arrays.asList(parkingSpot1,parkingSpot2,parkingSpot3,parkingSpot4,parkingSpot5));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

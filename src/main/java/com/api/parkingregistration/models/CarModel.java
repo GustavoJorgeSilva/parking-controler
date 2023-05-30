@@ -2,6 +2,8 @@ package com.api.parkingregistration.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,20 +25,16 @@ public class CarModel implements Serializable {
     private String modelCar;
     @Column(nullable = false, length = 70)
     private String colorCar;
-
     @JsonIgnore
-    @OneToOne(mappedBy = "car")
-    @JoinColumn(name = "resident_id")
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ResidentModel resident;
-
-
-
 
 
     public CarModel() {
     }
 
-    public CarModel(String licensePlateCar, String brandCar, String modelCar, String colorCar,ResidentModel resident) {
+    public CarModel(String licensePlateCar, String brandCar, String modelCar, String colorCar, ResidentModel resident) {
         this.licensePlateCar = licensePlateCar;
         this.brandCar = brandCar;
         this.modelCar = modelCar;

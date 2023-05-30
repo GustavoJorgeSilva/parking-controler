@@ -24,28 +24,14 @@ public class ParkingSpotModel implements Serializable {
     private LocalDateTime registrationDate;
 
 
-    @JsonIgnore
-    @OneToOne
-    private ApartmentModel apartmentModel;
-
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "car_id")
-    private CarModel carModel;
-
-
-
     public ParkingSpotModel() {
     }
 
-    public ParkingSpotModel(String parkingSpotNumber,
-                            LocalDateTime registrationDate) {
+    public ParkingSpotModel(String parkingSpotNumber, LocalDateTime registrationDate) {
 
 
         this.parkingSpotNumber = parkingSpotNumber;
         this.registrationDate = registrationDate;
-
-
     }
 
     public UUID getId() {
@@ -72,21 +58,6 @@ public class ParkingSpotModel implements Serializable {
         this.registrationDate = registrationDate;
     }
 
-    public ApartmentModel getApartmentModel() {
-        return apartmentModel;
-    }
-
-    public void setApartmentModel(ApartmentModel apartmentModel) {
-        this.apartmentModel = apartmentModel;
-    }
-
-    public CarModel getCarModel() {
-        return carModel;
-    }
-
-    public void setCarModel(CarModel carModel) {
-        this.carModel = carModel;
-    }
 
     @Override
     public boolean equals(Object o) {

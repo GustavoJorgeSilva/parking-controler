@@ -19,7 +19,8 @@ public class ApartmentModel implements Serializable {
     private String block;
 
 
-    @OneToOne
+
+    @OneToOne(mappedBy = "apartmentModel",cascade = CascadeType.REMOVE)
     private ResidentModel resident;
 
 
@@ -30,11 +31,11 @@ public class ApartmentModel implements Serializable {
     public ApartmentModel() {
     }
 
-    public ApartmentModel(String numberApartment, String block, ParkingSpotModel parkingSpotModel) {
+    public ApartmentModel(String numberApartment, String block) {
         this.numberApartment = numberApartment;
         this.block = block;
-        this.parkingSpotModel = parkingSpotModel;
         this.resident = getResident();
+        this.parkingSpotModel = getParkingSpotModel();
     }
 
     public UUID getId() {
@@ -77,10 +78,6 @@ public class ApartmentModel implements Serializable {
         this.parkingSpotModel = parkingSpotModel;
     }
 
-    public void addResident(ResidentModel resident){
-        this.resident = resident;
-        resident.setApartmentModel(this);
-    }
 
 
 }

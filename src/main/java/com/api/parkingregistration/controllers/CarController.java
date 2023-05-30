@@ -57,7 +57,7 @@ public class CarController {
        if (!carModelOptional.isPresent()){
            throw new ResourceNotFoundException(id);
        }
-       carService.delete(carModelOptional.get());
+       carService.delete(carModelOptional.get().getId());
         return ResponseEntity.noContent().build();
     }
 
