@@ -3,6 +3,8 @@ package com.api.parkingregistration.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -22,6 +24,14 @@ public class ParkingSpotModel implements Serializable {
 
     @Column(nullable = false)
     private LocalDateTime registrationDate;
+
+    @OneToOne(mappedBy = "parkingSpotModel", cascade = CascadeType.REMOVE)
+    private CarModel car;
+
+    @JsonIgnore
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ApartmentModel apartmentModel;
 
 
     public ParkingSpotModel() {
@@ -58,6 +68,22 @@ public class ParkingSpotModel implements Serializable {
         this.registrationDate = registrationDate;
     }
 
+
+    public CarModel getCar() {
+        return car;
+    }
+
+    public void setCar(CarModel car) {
+        this.car = car;
+    }
+
+    public ApartmentModel getApartmentModel() {
+        return apartmentModel;
+    }
+
+    public void setApartmentModel(ApartmentModel apartmentModel) {
+        this.apartmentModel = apartmentModel;
+    }
 
     @Override
     public boolean equals(Object o) {

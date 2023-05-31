@@ -10,6 +10,7 @@ import java.util.UUID;
 @Table(name = "TB_APARTMENT")
 public class ApartmentModel implements Serializable {
     @Id
+    @Column(name = "apartment_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
@@ -19,12 +20,11 @@ public class ApartmentModel implements Serializable {
     private String block;
 
 
-
-    @OneToOne(mappedBy = "apartmentModel",cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "apartmentModel", cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "resident_id")
     private ResidentModel resident;
 
-
-    @OneToOne
+    @OneToOne(mappedBy = "apartmentModel", cascade = CascadeType.REMOVE)
     private ParkingSpotModel parkingSpotModel;
 
 
@@ -77,7 +77,6 @@ public class ApartmentModel implements Serializable {
     public void setParkingSpotModel(ParkingSpotModel parkingSpotModel) {
         this.parkingSpotModel = parkingSpotModel;
     }
-
 
 
 }

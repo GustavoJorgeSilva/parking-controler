@@ -23,7 +23,6 @@ import java.util.Arrays;
 public class TestConfig implements CommandLineRunner {
 
 
-
     @Autowired
     private ParkingSpotRepository parkingSpotRepository;
 
@@ -40,22 +39,22 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        ParkingSpotModel parkingSpot1 = new ParkingSpotModel("111",LocalDateTime.now());
+        ParkingSpotModel parkingSpot1 = new ParkingSpotModel("111", LocalDateTime.now());
 
 
-        ResidentModel resident1 = new ResidentModel("Gustavo","765777767", LocalDate.now(),"gustavo.jorge@hotmail.com");
-        ResidentModel resident2 = new ResidentModel("Joao da silva","875875784",LocalDate.now(),"joao@gmail");
-        ResidentModel resident3 = new ResidentModel("Marcela soares","875875784",LocalDate.now(),"marcela@gmail");
-        ResidentModel resident4 = new ResidentModel("Guilherme Jorge","123213132",LocalDate.now(),"guilherme@gmail");
-        ResidentModel resident5 = new ResidentModel("Antonio Roberto","67675654",LocalDate.now(),"antonio@gmail");
+        ResidentModel resident1 = new ResidentModel("Gustavo", "765777767", LocalDate.now(), "gustavo.jorge@hotmail.com");
+        ResidentModel resident2 = new ResidentModel("Joao da silva", "875875784", LocalDate.now(), "joao@gmail");
+        ResidentModel resident3 = new ResidentModel("Marcela soares", "875875784", LocalDate.now(), "marcela@gmail");
+        ResidentModel resident4 = new ResidentModel("Guilherme Jorge", "123213132", LocalDate.now(), "guilherme@gmail");
+        ResidentModel resident5 = new ResidentModel("Antonio Roberto", "67675654", LocalDate.now(), "antonio@gmail");
 
-        residentRepository.saveAll(Arrays.asList(resident1,resident2,resident3,resident4,resident5));
+        residentRepository.saveAll(Arrays.asList(resident1, resident2, resident3, resident4, resident5));
 
-        CarModel car1 = new CarModel("trr6543","BMW","x5","Black",resident1);
-        CarModel car2= new CarModel("abc1234","BMW","x1","White",resident2);
-        CarModel car3 = new CarModel("ujm4321","Chevrolet","Corsa","Plate",resident3);
-        CarModel car4 = new CarModel("kli8752","Fiat","Toro","Blue",resident4);
-        CarModel car5 = new CarModel("nbz9087","Hyundai","hb20s","White",resident5);
+        CarModel car1 = new CarModel("trr6543", "BMW", "x5", "Black", resident1);
+        CarModel car2 = new CarModel("abc1234", "BMW", "x1", "White", resident2);
+        CarModel car3 = new CarModel("ujm4321", "Chevrolet", "Corsa", "Plate", resident3);
+        CarModel car4 = new CarModel("kli8752", "Fiat", "Toro", "Blue", resident4);
+        CarModel car5 = new CarModel("nbz9087", "Hyundai", "hb20s", "White", resident5);
 //        CarModel car6 = new CarModel("zdg1237","BMW","x5","Brown");
 
 
@@ -66,25 +65,31 @@ public class TestConfig implements CommandLineRunner {
         ParkingSpotModel parkingSpot4 = new ParkingSpotModel("444",
                 LocalDateTime.now());
 
-        ParkingSpotModel parkingSpot5 = new ParkingSpotModel("555",LocalDateTime.now());
+        ParkingSpotModel parkingSpot5 = new ParkingSpotModel("555", LocalDateTime.now());
+        ParkingSpotModel parkingSpot6 = new ParkingSpotModel("666", LocalDateTime.now());
 
-        parkingSpotRepository.saveAll(Arrays.asList(parkingSpot1,parkingSpot2,parkingSpot3,parkingSpot4,parkingSpot5));
+        parkingSpotRepository.saveAll(Arrays.asList(parkingSpot1, parkingSpot2, parkingSpot3, parkingSpot4, parkingSpot5,parkingSpot6));
 
-        ApartmentModel apartment1 = new ApartmentModel("145","A");
-        ApartmentModel apartment2 = new ApartmentModel("146","A");
-        ApartmentModel apartment3 = new ApartmentModel("147","A");
-        ApartmentModel apartment4 = new ApartmentModel("145","B");
-        ApartmentModel apartment5 = new ApartmentModel("146","B");
-        ApartmentModel apartment6 = new ApartmentModel("147","B");
+        ApartmentModel apartment1 = new ApartmentModel("145", "A");
+        ApartmentModel apartment2 = new ApartmentModel("146", "A");
+        ApartmentModel apartment3 = new ApartmentModel("147", "A");
+        ApartmentModel apartment4 = new ApartmentModel("145", "B");
+        ApartmentModel apartment5 = new ApartmentModel("146", "B");
+        ApartmentModel apartment6 = new ApartmentModel("147", "B");
 
         apartment1.setParkingSpotModel(parkingSpot1);
         apartment2.setParkingSpotModel(parkingSpot2);
         apartment3.setParkingSpotModel(parkingSpot3);
         apartment4.setParkingSpotModel(parkingSpot4);
         apartment5.setParkingSpotModel(parkingSpot5);
+        apartment6.setParkingSpotModel(parkingSpot6);
 
-
-        carRepository.saveAll(Arrays.asList(car1,car2,car3,car4,car5));
+        car1.setParkingSpotModel(parkingSpot1);
+        car2.setParkingSpotModel(parkingSpot2);
+        car3.setParkingSpotModel(parkingSpot3);
+        car4.setParkingSpotModel(parkingSpot4);
+        car5.setParkingSpotModel(parkingSpot5);
+        carRepository.saveAll(Arrays.asList(car1, car2, car3, car4, car5));
 
         apartment1.setResident(resident1);
         apartment2.setResident(resident2);
@@ -97,15 +102,27 @@ public class TestConfig implements CommandLineRunner {
         resident3.setCar(car3);
         resident4.setCar(car4);
         resident5.setCar(car5);
+
         resident1.setApartmentModel(apartment1);
         resident2.setApartmentModel(apartment2);
         resident3.setApartmentModel(apartment3);
         resident4.setApartmentModel(apartment4);
         resident5.setApartmentModel(apartment5);
 
-        apartmentRepository.saveAll(Arrays.asList(apartment1,apartment2,apartment3,apartment4,apartment1,apartment6,apartment5));
-        residentRepository.saveAll(Arrays.asList(resident1,resident2,resident3,resident4,resident5));
-        parkingSpotRepository.saveAll(Arrays.asList(parkingSpot1,parkingSpot2,parkingSpot3,parkingSpot4,parkingSpot5));
+
+
+        apartmentRepository.saveAll(Arrays.asList(apartment1, apartment2, apartment3, apartment4, apartment1, apartment6, apartment5));
+        residentRepository.saveAll(Arrays.asList(resident1, resident2, resident3, resident4, resident5));
+
+        parkingSpot1.setApartmentModel(apartment1);
+        parkingSpot2.setApartmentModel(apartment2);
+        parkingSpot3.setApartmentModel(apartment3);
+        parkingSpot4.setApartmentModel(apartment4);
+        parkingSpot5.setApartmentModel(apartment5);
+        parkingSpot6.setApartmentModel(apartment6);
+
+        parkingSpotRepository.saveAll(Arrays.asList(parkingSpot1, parkingSpot2, parkingSpot3, parkingSpot4, parkingSpot5,parkingSpot6));
+
 
     }
 }

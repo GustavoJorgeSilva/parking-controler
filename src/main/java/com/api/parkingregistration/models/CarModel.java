@@ -30,6 +30,10 @@ public class CarModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ResidentModel resident;
 
+    @JsonIgnore
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ParkingSpotModel parkingSpotModel;
 
     public CarModel() {
     }
@@ -88,6 +92,14 @@ public class CarModel implements Serializable {
 
     public void setResident(ResidentModel resident) {
         this.resident = resident;
+    }
+
+    public ParkingSpotModel getParkingSpotModel() {
+        return parkingSpotModel;
+    }
+
+    public void setParkingSpotModel(ParkingSpotModel parkingSpotModel) {
+        this.parkingSpotModel = parkingSpotModel;
     }
 
     @Override

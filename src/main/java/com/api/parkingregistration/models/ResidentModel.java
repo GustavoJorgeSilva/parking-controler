@@ -15,6 +15,7 @@ import java.util.UUID;
 public class ResidentModel implements Serializable {
 
     @Id
+    @Column(name = "resident_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
@@ -33,6 +34,7 @@ public class ResidentModel implements Serializable {
 
     @JsonIgnore
     @OneToOne
+    @JoinColumn(name = "apartment_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApartmentModel apartmentModel;
 
@@ -120,6 +122,8 @@ public class ResidentModel implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+
 
 
 }
