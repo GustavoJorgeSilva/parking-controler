@@ -41,7 +41,6 @@ public class TestConfig implements CommandLineRunner {
 
         ParkingSpotModel parkingSpot1 = new ParkingSpotModel("111", LocalDateTime.now());
 
-
         ResidentModel resident1 = new ResidentModel("Gustavo", "765777767", LocalDate.now(), "gustavo.jorge@hotmail.com");
         ResidentModel resident2 = new ResidentModel("Joao da silva", "875875784", LocalDate.now(), "joao@gmail");
         ResidentModel resident3 = new ResidentModel("Marcela soares", "875875784", LocalDate.now(), "marcela@gmail");
@@ -56,7 +55,6 @@ public class TestConfig implements CommandLineRunner {
         CarModel car4 = new CarModel("kli8752", "Fiat", "Toro", "Blue", resident4);
         CarModel car5 = new CarModel("nbz9087", "Hyundai", "hb20s", "White", resident5);
 //        CarModel car6 = new CarModel("zdg1237","BMW","x5","Brown");
-
 
         ParkingSpotModel parkingSpot2 = new ParkingSpotModel("222",
                 LocalDateTime.now());
@@ -109,8 +107,6 @@ public class TestConfig implements CommandLineRunner {
         resident4.setApartmentModel(apartment4);
         resident5.setApartmentModel(apartment5);
 
-
-
         apartmentRepository.saveAll(Arrays.asList(apartment1, apartment2, apartment3, apartment4, apartment1, apartment6, apartment5));
         residentRepository.saveAll(Arrays.asList(resident1, resident2, resident3, resident4, resident5));
 
@@ -122,7 +118,5 @@ public class TestConfig implements CommandLineRunner {
         parkingSpot6.setApartmentModel(apartment6);
 
         parkingSpotRepository.saveAll(Arrays.asList(parkingSpot1, parkingSpot2, parkingSpot3, parkingSpot4, parkingSpot5,parkingSpot6));
-
-
     }
 }

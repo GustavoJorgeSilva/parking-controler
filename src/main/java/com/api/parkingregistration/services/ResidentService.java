@@ -44,17 +44,13 @@ public class ResidentService {
     public void delete(ResidentModel residentModel) {
         try {
             residentRepository.delete(residentModel);
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException(residentModel.getId());
-        } catch (DataIntegrityViolationException e){
-           throw new DataBaseException(e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
         }
 
     }
-
-
-
-
 
     public ResidentModel update(UUID id, ResidentModel obj) {
         ResidentModel residentModel = residentRepository.getReferenceById(id);
@@ -62,23 +58,18 @@ public class ResidentService {
         return residentRepository.save(residentModel);
     }
 
-
     private void updateData(ResidentModel residentToUpdate, ResidentModel newData) {
 
         residentToUpdate.setResponsibleName(newData.getResponsibleName());
         residentToUpdate.setCpf(newData.getCpf());
         residentToUpdate.setEmail(newData.getEmail());
-
-
-
-
     }
 
     public boolean existsById(UUID residentModel) {
         return residentRepository.existsById(residentModel);
     }
 
-    public boolean existsByCpf(String cpf){
+    public boolean existsByCpf(String cpf) {
         return residentRepository.existsByCpf(cpf);
     }
 }

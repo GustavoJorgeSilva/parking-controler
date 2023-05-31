@@ -3,7 +3,6 @@ package com.api.parkingregistration.controllers;
 import com.api.parkingregistration.models.ApartmentModel;
 import com.api.parkingregistration.services.ApartmentService;
 import com.api.parkingregistration.services.exceptions.ConflictException;
-import com.api.parkingregistration.services.exceptions.DataBaseException;
 import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,6 +64,5 @@ public class ApartmentController {
         obj = apartmentService.update(id, obj);
         return ResponseEntity.ok().body(obj);
     }
-
 
 }

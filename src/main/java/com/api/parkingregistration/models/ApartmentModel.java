@@ -78,5 +78,4 @@ public class ApartmentModel implements Serializable {
         this.parkingSpotModel = parkingSpotModel;
     }
 
-
 }

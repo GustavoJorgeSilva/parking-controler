@@ -21,7 +21,6 @@ public class CarService {
     private CarRepository carRepository;
     private ParkingSpotRepository parkingSpotRepository;
 
-
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }

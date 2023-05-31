@@ -1,10 +1,8 @@
 package com.api.parkingregistration.controllers;
 
-import com.api.parkingregistration.dtos.ParkingSpotDTO;
 import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.services.ParkingSpotService;
 import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
-import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -64,7 +62,7 @@ public class ParkingSpotController {
         if (!parkingSpotModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found.");
         }
-        parkingSpotService.delete(parkingSpotModelOptional.get());
+        parkingSpotService.delete(parkingSpotModelOptional.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body("Park spot deleted successfully.");
     }
 

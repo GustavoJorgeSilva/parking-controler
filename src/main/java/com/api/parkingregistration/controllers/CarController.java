@@ -1,6 +1,6 @@
 package com.api.parkingregistration.controllers;
 
-import com.api.parkingregistration.models.ApartmentModel;
+
 import com.api.parkingregistration.models.CarModel;
 import com.api.parkingregistration.services.CarService;
 import com.api.parkingregistration.services.exceptions.ConflictException;
@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,6 +70,5 @@ public class CarController {
         obj = carService.update(id, obj);
         return ResponseEntity.ok().body(obj);
     }
-
 
 }

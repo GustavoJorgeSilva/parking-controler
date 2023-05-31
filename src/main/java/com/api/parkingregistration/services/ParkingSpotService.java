@@ -4,7 +4,11 @@ import com.api.parkingregistration.models.CarModel;
 import com.api.parkingregistration.models.ParkingSpotModel;
 import com.api.parkingregistration.models.ResidentModel;
 import com.api.parkingregistration.repositories.ParkingSpotRepository;
+import com.api.parkingregistration.services.exceptions.DataBaseException;
+import com.api.parkingregistration.services.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -37,8 +41,16 @@ public class ParkingSpotService {
     }
 
     @Transactional
-    public void delete(ParkingSpotModel parkingSpotModel){
-        repository.delete(parkingSpotModel);
+    public void delete(UUID id){
+        try{
+            Optional<ParkingSpotModel> parkingSpotModelOptional = repository.findById(id);
+            if (parkingSpotModelOptional.get().getCar() != null){
+                throw new DataBaseException("The parking spot could not be deleted because there is an existing car associated with it");
+            }
+            repository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
 

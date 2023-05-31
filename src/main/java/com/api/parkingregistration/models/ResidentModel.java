@@ -31,13 +31,11 @@ public class ResidentModel implements Serializable {
     @Column(nullable = false, length = 130)
     private String email;
 
-
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "apartment_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApartmentModel apartmentModel;
-
     @OneToOne(mappedBy = "resident", cascade = CascadeType.REMOVE)
     @JoinColumn(name = "car_id")
     private CarModel car;
@@ -110,7 +108,6 @@ public class ResidentModel implements Serializable {
         this.car = car;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -122,8 +119,5 @@ public class ResidentModel implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
-
-
-
 
 }
